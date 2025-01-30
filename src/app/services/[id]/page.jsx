@@ -25,20 +25,27 @@ const ServiceDetailPage = ({params}) => {
     },
   ];
 
-  const id = params.id;
+  const id = params?.id;
   const service = services.find(s=> s._id === id)
-  return (
-    <div className='max-w-6xl mx-auto py-12 grid grid-cols-2 gap-6'>
-      <div className='flex flex-col items-start justify-center gap-3'>
-        <p className='text-xl font-bold'>{service.name}</p>
-        <p className='text-base font-thin'>Price: ${service.price}</p>
-        <p className='text-base font-bold'>Details:- {service.description}</p>
+  if(service){
+    return (
+      <div className='max-w-6xl mx-auto py-12 grid grid-cols-2 gap-6'>
+        <div className='flex flex-col items-start justify-center gap-3'>
+          <p className='text-xl font-bold'>{service.name}</p>
+          <p className='text-base font-thin'>Price: ${service.price}</p>
+          <p className='text-base font-bold'>Details:- {service.description}</p>
+        </div>
+        <div className='p-6'>
+          <img src={service.img} alt="serviceImg" className='w-full h-[400px] rounded-md' />
+        </div>
       </div>
-      <div className='p-6'>
-        <img src={service.img} alt="serviceImg" className='w-full h-[400px] rounded-md' />
-      </div>
-    </div>
-  );
+    );
+  }
+  else{
+    return (<div className='min-h-screen min-w-screen flex justify-center items-center'>
+      <p>Service Not Found</p>
+    </div>);
+  }
 };
 
 export default ServiceDetailPage;
